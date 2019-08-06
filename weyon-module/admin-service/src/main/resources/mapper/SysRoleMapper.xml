@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyon.admin.dao.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.weyon.admin.entity.SysRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="CREATER_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+
+  <select id="selectPermByRoleId" resultType="string">
+    select c.permission_id from tb_sys_role_permission c where c.role_id = #{roleId}
+  </select>
+
+  <delete id="deleteUserRoleByRoleId">
+    delete from tb_sys_role_permission
+    where role_id = #{roleId}
+  </delete>
+
+  <insert id="saveRolePerm">
+    insert into tb_sys_role_permission
+    values
+    <foreach collection="perms" item="item" index="index" separator=",">
+      (#{roleId}, #{item})
+    </foreach>
+  </insert>
+</mapper>

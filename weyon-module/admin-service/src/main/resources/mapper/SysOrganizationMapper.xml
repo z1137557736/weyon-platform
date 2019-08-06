@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyon.admin.dao.SysOrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.weyon.admin.entity.SysOrganization">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PID" jdbcType="BIGINT" property="pid" />
+    <result column="PNAME" jdbcType="VARCHAR" property="pname" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ORG_TYPE" jdbcType="TINYINT" property="orgType" />
+    <result column="ORG_ADDR" jdbcType="VARCHAR" property="orgAddr" />
+    <result column="ICON" jdbcType="VARCHAR" property="icon" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="RECORD_STATUS" jdbcType="BIT" property="recordStatus" />
+    <result column="CREATER_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="REMARK" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+</mapper>

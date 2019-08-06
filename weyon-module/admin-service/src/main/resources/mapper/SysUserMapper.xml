@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyon.admin.dao.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.weyon.admin.entity.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="SELF_ID" jdbcType="VARCHAR" property="selfId" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="SALT" jdbcType="VARCHAR" property="salt" />
+    <result column="LOGIN_TYPE" jdbcType="INTEGER" property="loginType" />
+    <result column="UNIQUE_TOKEN" jdbcType="VARCHAR" property="uniqueToken" />
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <result column="NICK_NAME" jdbcType="VARCHAR" property="nickName" />
+    <result column="GENDER" jdbcType="CHAR" property="gender" />
+    <result column="BIRTHDAY" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    <result column="WECHAT" jdbcType="VARCHAR" property="wechat" />
+    <result column="IDENTITY_CARD" jdbcType="VARCHAR" property="identityCard" />
+    <result column="USER_TYPE" jdbcType="TINYINT" property="userType" />
+    <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+    <result column="HEAD_URL" jdbcType="VARCHAR" property="headUrl" />
+    <result column="LOCKED" jdbcType="CHAR" property="locked" />
+    <result column="ORGANIZATION_ID" jdbcType="BIGINT" property="organizationId" />
+    <result column="LOGIN_IP" jdbcType="VARCHAR" property="loginIp" />
+    <result column="LOGIN_TIME" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="RECORD_STATUS" jdbcType="TINYINT" property="recordStatus" />
+    <result column="CREATER_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+
+  <select id="selectByUsername" parameterType="string" resultMap="BaseResultMap">
+    select t.*
+    from tb_sys_user t
+    where username = #{username}
+  </select>
+
+  <select id="selectRoleByUserId" resultType="string">
+    select c.role_id from tb_sys_user_role c where c.user_id = #{userId}
+  </select>
+
+  <select id="selectRoleCodeByUserId" parameterType="string" resultType="string">
+    select r.ROLE_CODE
+    from tb_sys_role r
+    <if test="userId != 1">
+      inner join (select c.user_id,c.role_id from tb_sys_user_role c where c.user_id = #{userId}) ur
+      on r.id = ur.role_id
+    </if>
+  </select>
+
+  <delete id="deleteUserRoleByUserId">
+    delete from tb_sys_user_role
+    where user_id = #{userId}
+  </delete>
+
+  <insert id="saveUserRole">
+    insert into tb_sys_user_role
+    values
+    <foreach collection="roles" item="item" index="index" separator=",">
+      (#{userId}, #{item})
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,26 @@
+server:
+  port: 950
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: admin-api
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8849
+      datasource:
+        ds:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            namespace: 03aa230e-67b4-419c-adcb-476e5a677c05
+            dataId: ${spring.application.name}-sentinel
+            groupId: DEFAULT_GROUP
+            rule-type: flow
+feign:
+  sentinel:
+    enabled: true
