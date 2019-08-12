@@ -2,11 +2,11 @@ package com.weyon.core.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.weyon.controller.handler.BaseController;
-import com.weyon.controller.handler.ObjectResponse;
-import com.weyon.controller.handler.PageRequest;
-import com.weyon.core.entity.core.CoreLog;
-import com.weyon.core.service.core.CoreLogService;
+import com.weyon.common.handler.BaseController;
+import com.weyon.core.entity.CoreLog;
+import com.weyon.core.service.CoreLogService;
+import com.weyon.framework.handler.ObjectResponse;
+import com.weyon.framework.handler.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

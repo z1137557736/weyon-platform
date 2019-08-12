@@ -46,4 +46,7 @@ public class RedisConstant {
      */
     public static final String HEADER_TOKEN = "token";
 
+
+    public static final String CORE_FIELD_INFO_MAP_KEY = "core_field_info_map";
+
 }

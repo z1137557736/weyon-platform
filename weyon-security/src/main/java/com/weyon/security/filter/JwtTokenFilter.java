@@ -6,7 +6,6 @@ import com.weyon.security.service.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,11 +26,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     private JwtTokenService jwtTokenService;
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
@@ -60,9 +55,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         long expireTime = myUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
         if (expireTime - currentTime <= RedisConstant.MINUTES_10) {
-            String uuid = myUser.getUuid();
+            /*String uuid = myUser.getUuid();
             myUser = (MyUser) userDetailsService.loadUserByUsername(myUser.getUsername());
-            myUser.setUuid(uuid);
+            myUser.setUuid(uuid);*/
             jwtTokenService.refreshUser(myUser);
         }
         return myUser;

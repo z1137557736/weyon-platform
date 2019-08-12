@@ -11,7 +11,7 @@
     <groupId>com.weyon</groupId>
     <artifactId>weyon-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>weyon common</name>
+    <name>weyon-common</name>
     <description>weyon-common</description>
     <packaging>pom</packaging>
 

@@ -99,4 +99,100 @@
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
+  <sql id="base_columns">
+        t2.ID id,t1.BIND_WECHAT bindWechat,t1.GRADUATE_YEAR graduateYear,t1.XM xm,t1.YXDM yxdm,t1.YXMC yxmc,t1.SZYX szyx,t1.ZY zy,t1.XL xl,t1.XH xh,t1.XB xb,t1.SFZH sfzh
+    ,t2.BYQX byqx,t2.DWMC dwmc,t2.BDZQFLB bdzqflb,t2.CHECK_DATE checkDate
+    </sql>
+
+  <sql id="baseWhere">
+
+    and t1.YXDM = #{yxdm}
+    <if test="graduateYear != null and graduateYear != ''">
+      and t1.GRADUATE_YEAR = #{graduateYear}
+    </if>
+    <if test="xm != null and xm != ''">
+      and t1.XM like concat('%',#{xm},'%')
+    </if>
+    <if test="xh != null and xh != ''">
+      and t1.XH = #{xh}
+    </if>
+    <if test="szyx != null and szyx != ''">
+      and t1.SZYX = #{szyx}
+    </if>
+    <if test="zy != null and zy != ''">
+      and t1.ZY = #{zy}
+    </if>
+    <if test="xl != null and xl != ''">
+      and t1.XL = #{xl}
+    </if>
+    <if test="sfzh != null and sfzh != ''">
+      and t1.SFZH = #{sfzh}
+    </if>
+    <if test="byqx != null and byqx != ''">
+      and t1.BYQX = #{byqx}
+    </if>
+    <if test="dwmc != null and dwmc != ''">
+      and t1.DWMC = #{dwmc}
+    </if>
+  </sql>
+
+  <select id="selectStuEmployList" parameterType="map" resultType="map">
+    select
+    <include refid="base_columns"></include>
+    from tb_core_student_source t1 inner join tb_core_student_employ t2
+    on t1.STUDENT_KEY = t2.STUDENT_KEY
+    <include refid="baseWhere"></include>
+    order by t2.CHECK_DATE desc
+  </select>
+
+  <select id="selectStuEmployById" parameterType="map" resultType="map">
+    select
+    t2.ID id,t1.BIND_WECHAT bindWechat,t1.GRADUATE_YEAR graduateYear,t1.XM xm,t1.YXDM yxdm,t1.YXMC yxmc,t1.SZYX szyx,t1.ZY zy,t1.XL xl,t1.XH xh,t1.XB xb,t1.XBDM xbdm,t1.SFZH sfzh
+    ,t2.BYQX byqx,t2.BYQXDM byqxdm,t2.DWMC dwmc,t2.DWXZ dwxz,t2.DWXZDM dwxzdm,t2.DWHY dwhy,t2.DWHYDM dwhydm,t2.DWZZJGDM dwzzjgdm,t2.DWSZD dwszd,t2.GZZWLB gzzwlb,t2.GZZWLBDM gzzwlbdm,t2.BDZQFLB bdzqflb,t2.CHECK_DATE checkDate,
+    t2.STUDENT_KEY studentKey,t2.JY_KZZD1 jyKzzd1,t2.JY_KZZD2 jyKzzd2,t2.JY_KZZD3 jyKzzd3,t2.JY_KZZD4 jyKzzd4,t2.JY_KZZD5 jyKzzd5,t2.JY_KZZD6 jyKzzd6,t2.JY_KZZD7 jyKzzd7,t2.JY_KZZD8 jyKzzd8
+    from tb_core_student_source t1 inner join tb_core_student_employ t2
+    on t1.STUDENT_KEY = t2.STUDENT_KEY
+    <where>
+      and t2.ID = #{id}
+    </where>
+
+    order by t2.CHECK_DATE desc
+  </select>
+
+  <insert id="saveBatch" parameterType="com.weyon.core.entity.CoreStudentEmploy">
+    INSERT INTO tb_core_student_employ (
+    ID,STUDENT_KEY,PQFS,PQFSDM,BYQX,BYQXDM,DWMC,DWZZJGDM,DWXZ,DWXZDM,DWHY,DWHYDM,DWSZD,DWSZDDM,GZZWLB,GZZWLBDM,
+    DWLXR,LXRSJ,LXRDH,LXRDZYX,LXRCZ,DWYB,DWDZ,SFJSBDZ,BDZQFLB,BDZQFLBDM,BDZXLH,BDZBH,BDZQSSJ,BDZQWDWLS,BDZQWDWLSDM,
+    BDZQWDWDZ,QWDWSZD,QWDWSZDDM,SJDWSZD,SJDWSZDDM,SFJSDA,DAZJDWMC,DAZJDWLXR,DAZJDWDH,DAZJDWYB,DAZJDWDZ,SFQYHK,HKQZDW,
+    HKQZDZ,XYSBH,JYXYZP,SXYX,SXYXDM,SXZY,SXZYDM,SXXL,SXXLDM,BDZBZ,CGCJMC,JCJYLB,JCJYLBDM,JYZK,JYZKDM,JYCLLX,JYCLLXDM,
+    WJYLB,WJYLBDM,FKLB,FKLBDM,GZ_QXZZHW,SFZYDK,SFJYKN,GZ_YPSJ,YLQYDWFL,YLSYDWFL,DWLSBM,DWLXBM,DWSYZXZ,BDZ_BZH,BDZBH_QZ
+    BDZBH_HZ,BDZ_DACL,JY_KZZD1,JY_KZZD2,JY_KZZD3,JY_KZZD3,JY_KZZD4,JY_KZZD5,JY_KZZD6,JY_KZZD7,JY_KZZD8,CHECK_UPDATE,CHECK_DATE,
+    CREATOR_ID,CREATOR
+    )
+    VALUES
+    <foreach collection="list" index="index" item="item" separator=",">
+      ((SELECT REPLACE(UUID(),'-','') AS ID),#{item.studentKey},#{item.pqfs},#{item.pqfsdm},#{item.byqx},#{item.byqxdm},#{item.dwmc},#{item.dwzzjgdm},#{item.dwxz},#{item.dwxzdm},#{item.dwhy},
+      #{item.dwhydm},#{item.dwszd},#{item.dwszddm},#{item.gzzwlb},#{item.gzzwlbdm},#{item.dwlxr},#{item.lxrsj},#{item.lxrdh},#{item.lxrdzyx},#{item.lxrcz},#{item.dwyb},#{item.dwdz},#{item.sfjsbdz},#{item.bdzqflb},#{item.bdzqflbdm},
+      #{item.bdzxlh},#{item.bdzbh},#{item.bdzqssj},#{item.bdzqwdwmc},#{item.bdzqwdwls},#{item.bdzqwdwlsdm},#{item.bdzqwdwdz},#{item.qwdwszd},#{item.qwdwszddm},#{item.sjdwszd},#{item.sjdwszddm},#{item.sfjsda},#{item.dazjdwmc},#{item.dazjdwlxr},#{item.dazjdwdh},
+      #{item.dazjdwyb},#{item.dazjdwdz},#{item.sfqyhk},#{item.hkqzdw},#{item.hkqzdz},#{item.xysbh},#{item.jyxyzp},#{item.sxyx},#{item.sxyxdm},#{item.sxzy},#{item.sxzydm},#{item.sxxl},#{item.sxxldm},#{item.bdzbz},#{item.cgcjmc},
+      #{item.jcjylb},#{item.jcjylbdm},#{item.jyzk},#{item.jyzkdm},#{item.jycllx},#{item.jycllxdm},#{item.wjylb},#{item.wjylbdm},#{item.fklb},#{item.fklbdm},#{item.gzQxzzhw},#{item.sfzydk},#{item.sfjykn},#{item.gzYpsj},#{item.ylqydwfl},
+      #{item.ylsydwfl},#{item.dwlsbm},#{item.dwlxbm},#{item.dwsyzxz},#{item.bdzBzh},#{item.bdzbhQz},#{item.bdzbhHz},#{item.bdzDacl},#{item.jyKzzd1},#{item.jyKzzd2},#{item.jyKzzd3},#{item.jyKzzd4},#{item.jyKzzd5},#{item.jyKzzd6},#{item.jyKzzd7},
+      #{item.jyKzzd8},#{item.checkUpdate},#{item.checkDate},#{item.creatorId},#{item.creator}
+      )
+    </foreach>
+  </insert>
+
+
+  <update id="updateBatch" parameterType="com.weyon.core.entity.CoreStudentEmploy">
+    UPDATE tb_core_student_employ
+    <set>
+      PQFS =  #{item.pqfs}, PQFSDM = #{item.pqfsdm}, BYQX = #{item.byqx}, BYQXDM = #{item.byqxdm}, DWMC = #{item.dwmc}, DWZZJGDM = #{item.dwzzjgdm}, DWXZ = #{item.dwxz}, DWXZDM = #{item.dwxzdm}, DWHY = #{item.dwhy},
+      DWHYDM = #{item.dwhydm}, DWSZD = #{item.dwszd}, DWSZDDM = #{item.dwszddm}, GZZWLB = #{item.gzzwlb}, GZZWLBDM = #{item.gzzwlbdm}, DWLXR = #{item.dwlxr}, LXRSJ = #{item.lxrsj}, LXRDH = #{item.lxrdh}, LXRDZYX = #{item.lxrdzyx}, LXRCZ = #{item.lxrcz}, DWYB = #{item.dwyb}, DWDZ = #{item.dwdz}, SFJSBDZ = #{item.sfjsbdz}, BDZQFLB = #{item.bdzqflb}, BDZQFLBDM = #{item.bdzqflbdm},
+      BDZXLH =  #{item.bdzxlh}, BDZBH = #{item.bdzbh}, BDZQSSJ = #{item.bdzqssj}, BDZQWDWMC = #{item.bdzqwdwmc}, BDZQWDWLS = #{item.bdzqwdwls}, BDZQWDWLSDM = #{item.bdzqwdwlsdm}, BDZQWDWDZ = #{item.bdzqwdwdz}, QWDWSZD = #{item.qwdwszd}, QWDWSZDDM = #{item.qwdwszddm}, SJDWSZD = #{item.sjdwszd}, SJDWSZDDM = #{item.sjdwszddm}, SFJSDA = #{item.sfjsda}, DAZJDWMC = #{item.dazjdwmc}, DAZJDWLXR = #{item.dazjdwlxr}, DAZJDWDH = #{item.dazjdwdh},
+      DAZJDWYB = #{item.dazjdwyb}, DAZJDWDZ = #{item.dazjdwdz}, SFQYHK = #{item.sfqyhk}, HKQZDW = #{item.hkqzdw}, HKQZDZ = #{item.hkqzdz}, XYSBH = #{item.xysbh}, JYXYZP = #{item.jyxyzp}, SXYX = #{item.sxyx}, SXYXDM = #{item.sxyxdm}, SXZY = #{item.sxzy}, SXZYDM = #{item.sxzydm}, SXXL = #{item.sxxl}, SXXLDM = #{item.sxxldm}, BDZBZ = #{item.bdzbz}, CGCJMC = #{item.cgcjmc},
+      JCJYLB = #{item.jcjylb}, JCJYLBDM = #{item.jcjylbdm}, JYZK = #{item.jyzk}, JYZKDM = #{item.jyzkdm}, JYCLLX = #{item.jycllx}, JYCLLXDM = #{item.jycllxdm}, WJYLB = #{item.wjylb}, WJYLBDM = #{item.wjylbdm}, FKLB = #{item.fklb}, FKLBDM = #{item.fklbdm}, GZ_QXZZHW = #{item.gzQxzzhw}, SFZYDK = #{item.sfzydk}, SFJYKN = #{item.sfjykn}, GZ_YPSJ = #{item.gzYpsj}, YLQYDWFL = #{item.ylqydwfl},
+      YLSYDWFL = #{item.ylsydwfl}, DWLSBM = #{item.dwlsbm}, DWLXBM = #{item.dwlxbm}, DWSYZXZ = #{item.dwsyzxz}, BDZ_BZH = #{item.bdzBzh}, BDZBH_QZ = #{item.bdzbhQz}, BDZBH_HZ = #{item.bdzbhHz}, BDZ_DACL = #{item.bdzDacl}, JY_KZZD1 = #{item.jyKzzd1}, JY_KZZD2 = #{item.jyKzzd2}, JY_KZZD3 = #{item.jyKzzd3}, JY_KZZD4 = #{item.jyKzzd4}, JY_KZZD5 = #{item.jyKzzd5}, JY_KZZD6 = #{item.jyKzzd6}, JY_KZZD7 = #{item.jyKzzd7},
+      JY_KZZD8 = #{item.jyKzzd8}, CHECK_UPDATE = #{item.checkUpdate}, CHECK_DATE = #{item.checkDate}, CREATOR_ID = #{item.creatorId}, CREATOR =#{item.creator}
+    </set>
+  </update>
 </mapper>

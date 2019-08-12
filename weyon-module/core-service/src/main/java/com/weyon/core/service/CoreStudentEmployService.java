@@ -1,7 +1,7 @@
 package com.weyon.core.service;
 
-import com.weyon.core.entity.core.CoreStudentEmploy;
-import com.weyon.framework.model.IService;
+import com.weyon.common.model.IService;
+import com.weyon.core.entity.CoreStudentEmploy;
 
 import java.util.List;
 import java.util.Map;

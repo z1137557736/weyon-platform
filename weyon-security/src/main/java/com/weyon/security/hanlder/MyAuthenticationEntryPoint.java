@@ -1,4 +1,4 @@
-package com.weyon.admin.security.handler;
+package com.weyon.security.hanlder;
 
 import com.alibaba.fastjson.JSON;
 import com.weyon.framework.constant.HttpStatus;

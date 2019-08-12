@@ -5,6 +5,8 @@ import com.weyon.admin.security.MyUserService;
 import com.weyon.admin.security.handler.*;
 import com.weyon.framework.util.MD5Util;
 import com.weyon.security.filter.JwtTokenFilter;
+import com.weyon.security.hanlder.MyAuthenticationAccessDeniedHandler;
+import com.weyon.security.hanlder.MyAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

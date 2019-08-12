@@ -1,8 +1,8 @@
 package com.weyon.core.service.impl;
 
-import com.weyon.core.entity.core.CoreLog;
-import com.weyon.core.service.core.CoreLogService;
-
+import com.weyon.common.model.BaseService;
+import com.weyon.core.entity.CoreLog;
+import com.weyon.core.service.CoreLogService;
 import org.springframework.stereotype.Service;
 
 @Service

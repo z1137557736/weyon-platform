@@ -1,10 +1,10 @@
 package com.weyon.core.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.weyon.core.dao.core.CoreStudentSourceMapper;
-import com.weyon.core.entity.core.CoreStudentSource;
-import com.weyon.core.service.core.CoreStudentSourceService;
-import com.weyon.framework.model.BaseService;
+import com.weyon.common.model.BaseService;
+import com.weyon.core.dao.CoreStudentSourceMapper;
+import com.weyon.core.entity.CoreStudentSource;
+import com.weyon.core.service.CoreStudentSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;

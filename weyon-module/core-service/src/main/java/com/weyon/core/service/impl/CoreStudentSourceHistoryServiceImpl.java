@@ -1,9 +1,9 @@
 package com.weyon.core.service.impl;
 
-import com.weyon.core.dao.core.CoreStudentSourceHistoryMapper;
-import com.weyon.core.entity.core.CoreStudentSourceHistory;
-import com.weyon.core.service.core.CoreStudentSourceHistoryService;
-import com.weyon.framework.model.BaseService;
+import com.weyon.common.model.BaseService;
+import com.weyon.core.dao.CoreStudentSourceHistoryMapper;
+import com.weyon.core.entity.CoreStudentSourceHistory;
+import com.weyon.core.service.CoreStudentSourceHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

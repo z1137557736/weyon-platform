@@ -77,4 +77,258 @@
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
+
+  <select id="selectSzyxZy" resultType="map">
+    select t.szyx name,t.zy,t.xl,CONCAT(t.zy,'（',substr(t.xl, 1, 1),'）') label from tb_core_student_source t
+    <if test="yxdm != 0">
+      where t.yxdm = #{yxdm}
+    </if>
+    group by t.szyx,t.xl,t.zy
+    order by t.szyx
+  </select>
+
+  <select id="selectXlList" resultType="map">
+    select distinct t.xl from tb_core_student_source t
+    <where>
+      <if test="yxdm != 0">
+        and t.yxdm = #{yxdm}
+      </if>
+      <if test="zy != null and zy !=''">
+        and t.zy = #{zy}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectZyList" resultType="map">
+    select distinct t.zy from tb_core_student_source t
+    <where>
+      <if test="yxdm != 0">
+        and t.yxdm = #{yxdm}
+      </if>
+      <if test="zy != null and zy !=''">
+        and t.xl = #{xl}
+      </if>
+    </where>
+  </select>
+
+  <insert id="saveBatch"  parameterType="com.weyon.core.entity.CoreStudentSource">
+    INSERT INTO tb_core_student_source  (
+    ID,BIND_WECHAT,OPEN_ID,SCHOOL_ID,GRADUATE_YEAR,STUDENT_KEY,XM,XB,XBDM,SFZH,MZ,MZDM,SYSZDDM,SYSZD,
+    MOBILEPHONE,QQ,EMAIL,JTDZ,JTDH,JTYB,KSH,KSLBDM,KSLB,YXDM,YXMC,XLDM,XL,XZ,SZYX,ZYDM,ZY,ZYFX,
+    SZBJ,XH,RXSJ,BYSJ,KNSLBDM,KNSLB,SFSLBDM,SFSLB,PYFSDM,PYFS,ZXWYDM,ZXWY,DASFZRXX,HKSFZRXX,RXQDASZDW,
+    RXQHKSZDPCS,DXHWPDW,CXSY,AUDIT_STATUS,AUDIT_CONTENT,AUDIT_DATE,AUDITOR_ID,UNBIND_IMG_URL,UNBIND_CONTENT,
+    KZZD1,KZZD2,KZZD3,KZZD4,KZZD5,KZZD6,KZZD7,KZZD8,CHECK_UPDATE,CHECK_DATE,CREATOR_ID,CREATOR
+    )VALUES
+    <foreach collection="list" index="index" item="item" separator=",">
+      ((SELECT REPLACE(UUID(),'-','') AS ID),#{item.bindWechat},#{item.openId},#{item.schoolId},#{item.graduateYear},#{item.studentKey},#{item.xm},#{item.xb},#{item.xbdm},#{item.sfzh},#{item.mz}
+      ,#{item.mzdm},#{item.syszddm},#{item.syszd},#{item.mobilephone},#{item.qq},#{item.email},#{item.jtdz},#{item.jtdh},#{item.jtyb},#{item.ksh},#{item.kslbdm}
+      ,#{item.kslb},#{item.yxdm},#{item.yxmc},#{item.xldm},#{item.xl},#{item.xz},#{item.szyx},#{item.zydm},#{item.zy},#{item.zyfx},#{item.szbj}
+      ,#{item.xh} ,#{item.rxsj} ,#{item.bysj} ,#{item.knslbdm} ,#{item.knslb} ,#{item.sfslbdm} ,#{item.sfslb} ,#{item.pyfsdm} ,#{item.pyfs} ,#{item.zxwydm}
+      ,#{item.zxwy},#{item.dasfzrxx},#{item.hksfzrxx},#{item.rxqdaszdw},#{item.rxqhkszdpcs},#{item.dxhwpdw},#{item.cxsy},#{item.auditStatus}
+      ,#{item.auditContent},#{item.auditDate},#{item.auditorId},#{item.unbindImgUrl},#{item.unbindContent},#{item.kzzd1},#{item.kzzd2}
+      ,#{item.kzzd3},#{item.kzzd4},#{item.kzzd5},#{item.kzzd6},#{item.kzzd7},#{item.kzzd8},#{item.checkUpdate},#{item.checkDate},#{item.creatorId}
+      ,#{item.creator}
+      )
+    </foreach>
+  </insert>
+
+  <update id="updateBatch" parameterType="com.weyon.core.entity.CoreStudentSource">
+
+    <foreach collection="list" index="index" item="item" separator=",">
+      UPDATE tb_core_student_source
+      <set>
+        BIND_WECHAT = #{item.bindWechat},OPEN_ID = #{item.openId},SCHOOL_ID = #{item.schoolId},
+        GRADUATE_YEAR = #{item.graduateYear},XM = #{item.xm}, XB = #{item.xb}, XBDM = #{item.xbdm}, SFZH = #{item.sfzh}, MZ = #{item.mz}
+        ,MZDM = #{item.mzdm}, SYSZDDM = #{item.syszddm}, SYSZD = #{item.syszd}, MOBILEPHONE = #{item.mobilephone}, QQ = #{item.qq}, EMAIL = #{item.email}, JTDZ = #{item.jtdz}, JTDH = #{item.jtdh},JTYB = #{item.jtyb}, KSH = #{item.ksh}, KSLBDM = #{item.kslbdm}
+        ,KSLB = #{item.kslb}, YXDM = #{item.yxdm}, YXMC = #{item.yxmc}, XLDM = #{item.xldm}, XL = #{item.xl}, XZ = #{item.xz}, SZYX = #{item.szyx}, ZYDM = #{item.zydm}, ZY = #{item.zy}, ZYFX = #{item.zyfx}, SZBJ = #{item.szbj}
+        ,XH = #{item.xh} , RXSJ = #{item.rxsj} , BYSJ = #{item.bysj} , KNSLBDM = #{item.knslbdm} , KNSLB = #{item.knslb} , SFSLBDM = #{item.sfslbdm} , SFSLB = #{item.sfslb} , PYFSDM = #{item.pyfsdm} , PYFS = #{item.pyfs} , ZXWYDM = #{item.zxwydm}
+        ,ZXWY = #{item.zxwy}, DASFZRXX = #{item.dasfzrxx}, HKSFZRXX = #{item.hksfzrxx}, RXQDASZDW = #{item.rxqdaszdw}, RXQHKSZDPCS = #{item.rxqhkszdpcs}, DXHWPDW = #{item.dxhwpdw}, CXSY = #{item.cxsy}, AUDIT_STATUS = #{item.auditStatus}
+        ,AUDIT_CONTENT = #{item.auditContent}, AUDIT_DATE = #{item.auditDate}, AUDITOR_ID = #{item.auditorId}, UNBIND_IMG_URL = #{item.unbindImgUrl}, UNBIND_CONTENT = #{item.unbindContent}, KZZD1 = #{item.kzzd1}, KZZD2 = #{item.kzzd2}
+        ,KZZD3 = #{item.kzzd3}, KZZD4 = #{item.kzzd4}, KZZD5 = #{item.kzzd5}, KZZD6 = #{item.kzzd6}, KZZD7 = #{item.kzzd7}, KZZD8 = #{item.kzzd8}, CHECK_UPDATE =  #{item.checkUpdate}, CHECK_DATE = #{item.checkDate}
+      </set>
+      <where>
+        ID = #{item.id}
+      </where>
+    </foreach>
+  </update>
+
+  <select id="selectStatistics" parameterType="com.weyon.core.entity.CoreStudentSource" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    COUNT(1) AS 'sampleNum',
+    COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END ) AS 'checkNum',
+    COUNT(CASE WHEN BIND_WECHAT =1 AND AUDIT_STATUS = 0 THEN 1 ELSE NULL END ) AS 'noCheckNum',
+    COUNT(CASE WHEN BIND_WECHAT !=1 THEN 1 ELSE NULL END ) AS 'noAuthenticationNum',
+    concat(ROUND(COUNT(CASE WHEN AUDIT_STATUS >= 1 THEN 1 ELSE NULL END )/COUNT(1)*100, 2),' %') AS  'checkProportion',
+    YXMC
+    FROM
+    tb_core_student_source
+    <where>
+      <if test="yxdm != null and yxdm !=''">
+        YXDM = #{yxdm}
+      </if>
+      <if test="szyx != null and szyx !=''">
+        AND  SZYX = #{szyx}
+      </if>
+      <if test="zy != null and zy !=''">
+        AND ZY = #{zy}
+      </if>
+      <if test="xl != null and xl !=''">
+        AND XL = #{xl}
+      </if>
+    </where>
+    GROUP BY
+    YXMC
+    <if test="zy != null and zy !=''">
+      ,ZY
+    </if>
+    <if test="xl != null and xl !=''">
+      ,XL
+    </if>
+    <if test="szyx != null and szyx !=''">
+      ,SZYX
+    </if>
+    ORDER BY checkProportion DESC
+  </select>
+  <!--根据专业统计生源信息-->
+  <select id="statisticsByZY" parameterType="com.weyon.core.entity.CoreStudentSource" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    ZY,
+    COUNT(1) AS 'sampleNum',
+    COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END ) AS 'checkNum',
+    COUNT(CASE WHEN BIND_WECHAT =1 AND AUDIT_STATUS = 0 THEN 1 ELSE NULL END ) AS 'noCheckNum',
+    COUNT(CASE WHEN BIND_WECHAT !=1 THEN 1 ELSE NULL END ) AS 'noAuthenticationNum',
+    concat(ROUND(COUNT(CASE WHEN AUDIT_STATUS >= 1 THEN 1 ELSE NULL END )/COUNT(1)*100, 2),' %') AS  'checkProportion'
+    FROM
+    tb_core_student_source
+    <where>
+      <if test="yxdm != null and yxdm != ''">
+        YXDM = #{yxdm}
+      </if>
+      <if test="zy != null and zy != ''">
+        AND ZY = #{zy}
+      </if>
+      <if test="xl != null and xl != ''">
+        AND XL = #{xl}
+      </if>
+    </where>
+
+    GROUP BY ZY
+    ORDER BY checkProportion DESC
+  </select>
+
+
+  <select id="statisticsByXL" parameterType="com.weyon.core.entity.CoreStudentSource" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    XL,
+    COUNT(1) AS 'sampleNum',
+    COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END ) AS 'checkNum',
+    COUNT(CASE WHEN BIND_WECHAT =1 AND AUDIT_STATUS = 0 THEN 1 ELSE NULL END ) AS 'noCheckNum',
+    COUNT(CASE WHEN BIND_WECHAT !=1 THEN 1 ELSE NULL END ) AS 'noAuthenticationNum',
+    concat(ROUND(COUNT(CASE WHEN AUDIT_STATUS >= 1 THEN 1 ELSE NULL END )/COUNT(1)*100, 2),' %') AS  'checkProportion'
+    FROM
+    tb_core_student_source
+    <where>
+      <if test="yxdm != null and yxdm != ''">
+        YXDM = #{yxdm}
+      </if>
+      <if test="zy != null and zy != ''">
+        AND ZY = #{zy}
+      </if>
+      <if test="xl != null and xl != ''">
+        AND XL = #{xl}
+      </if>
+    </where>
+
+    GROUP BY XL
+    ORDER BY checkProportion DESC
+  </select>
+
+
+  <!--错误生源信息统计-->
+  <select id="selectErrorStatistics" parameterType="com.alibaba.fastjson.JSONObject" resultType="java.util.Map">
+    SELECT
+    YXMC,
+    COUNT(CASE WHEN CHECK_UPDATE = 1  THEN 1 ELSE NULL END) AS 'errorNum',
+    COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END ) AS 'checkNum',
+    concat(ROUND(COUNT(CASE WHEN CHECK_UPDATE >= 1 THEN 1 ELSE NULL END )/COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END )*100, 2),' %') AS  'errorProportion'
+    FROM
+    tb_core_student_source
+    <where>
+      <if test="yxdm != null and yxdm !=''">
+        YXDM = #{yxdm}
+      </if>
+      <if test="szyx != null and szyx !=''">
+        AND  SZYX = #{szyx}
+      </if>
+      <if test="zy != null and zy !=''">
+        AND ZY = #{zy}
+      </if>
+      <if test="xl != null and xl !=''">
+        AND XL = #{xl}
+      </if>
+    </where>
+    GROUP BY YXMC
+    <if test="zy != null and zy !=''">
+      ,ZY
+    </if>
+    <if test="xl != null and xl !=''">
+      ,XL
+    </if>
+    <if test="szyx != null and szyx !=''">
+      ,SZYX
+    </if>
+    order by errorProportion desc
+  </select>
+
+  <!--按照专业统计生源错误信息-->
+  <select id="errorStatisticsByZY" resultType="java.util.Map" parameterType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    ZY,
+    COUNT(CASE WHEN CHECK_UPDATE = 1  THEN 1 ELSE NULL END) AS 'errorNum',
+    COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END ) AS 'checkNum',
+    concat(
+    case when COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END) = 0 then 0.00 else
+    ROUND(COUNT(CASE WHEN CHECK_UPDATE >= 1 THEN 1 ELSE NULL END )/COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END )*100, 2) end,' %') AS  'errorProportion'
+    FROM
+    tb_core_student_source
+    <where>
+      <if test="yxdm != null and yxdm != ''">
+        YXDM = #{yxdm}
+      </if>
+      <if test="zy != null and zy != ''">
+        AND ZY = #{zy}
+      </if>
+      <if test="xl != null and xl != ''">
+        AND XL = #{xl}
+      </if>
+    </where>
+    GROUP BY ZY
+    order by errorProportion desc
+  </select>
+
+  <!--按照学历统计错误生源信息-->
+  <select id="errorStatisticsByXL" resultType="java.util.Map" parameterType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    XL,
+    COUNT(CASE WHEN CHECK_UPDATE = 1  THEN 1 ELSE NULL END) AS 'errorNum',
+    COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END ) AS 'checkNum',
+    concat(
+    case when COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END) = 0 then 0.00 else
+    ROUND(COUNT(CASE WHEN CHECK_UPDATE >= 1 THEN 1 ELSE NULL END )/COUNT(CASE WHEN AUDIT_STATUS >= 1  THEN 1 ELSE NULL END )*100, 2) end,' %') AS  'errorProportion'
+    FROM
+    tb_core_student_source
+    <where>
+      <if test="yxdm != null and yxdm != ''">
+        YXDM = #{yxdm}
+      </if>
+      <if test="zy != null and zy != ''">
+        AND ZY = #{zy}
+      </if>
+      <if test="xl != null and xl != ''">
+        AND XL = #{xl}
+      </if>
+    </where>
+    GROUP BY XL
+    order by errorProportion desc
+  </select>
 </mapper>

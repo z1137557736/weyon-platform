@@ -1,6 +1,6 @@
 spring:
   application:
-    name: admin-service
+    name: core-service
   cloud:
     nacos:
       discovery:

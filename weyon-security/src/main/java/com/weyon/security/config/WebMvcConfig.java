@@ -30,7 +30,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     }
-    
+
     /**
      * 使用fastjson代替jackson
      * @param converters

@@ -77,4 +77,12 @@
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
+
+  <select id="selectSecondNew" resultMap="BaseResultMap">
+    select * from tb_core_student_source_history where student_key = #{studenKey} order by update_date desc limit 1,1
+  </select>
+
+  <select id="selectNew" resultMap="BaseResultMap">
+    select * from tb_core_student_source_history where student_key = #{studenKey} order by update_date desc limit 0,1
+  </select>
 </mapper>

@@ -1,9 +1,9 @@
 package com.weyon.core.service.impl;
 
-import com.weyon.core.dao.core.CoreStudentEmployMapper;
-import com.weyon.core.entity.core.CoreStudentEmploy;
-import com.weyon.core.service.core.CoreStudentEmployService;
-import com.weyon.framework.model.BaseService;
+import com.weyon.common.model.BaseService;
+import com.weyon.core.dao.CoreStudentEmployMapper;
+import com.weyon.core.entity.CoreStudentEmploy;
+import com.weyon.core.service.CoreStudentEmployService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;

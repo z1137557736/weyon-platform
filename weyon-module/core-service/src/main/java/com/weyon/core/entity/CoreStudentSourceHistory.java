@@ -279,7 +279,7 @@ public class CoreStudentSourceHistory implements Serializable {
     private Byte dasfzrxx;
 
     /**
-     * 户口是否转入学校
+     * 户口是否转入学校 
      */
     @Column(name = "HKSFZRXX")
     private Byte hksfzrxx;
@@ -1247,18 +1247,18 @@ public class CoreStudentSourceHistory implements Serializable {
     }
 
     /**
-     * 获取户口是否转入学校
+     * 获取户口是否转入学校 
      *
-     * @return HKSFZRXX - 户口是否转入学校
+     * @return HKSFZRXX - 户口是否转入学校 
      */
     public Byte getHksfzrxx() {
         return hksfzrxx;
     }
 
     /**
-     * 设置户口是否转入学校
+     * 设置户口是否转入学校 
      *
-     * @param hksfzrxx 户口是否转入学校
+     * @param hksfzrxx 户口是否转入学校 
      */
     public void setHksfzrxx(Byte hksfzrxx) {
         this.hksfzrxx = hksfzrxx;

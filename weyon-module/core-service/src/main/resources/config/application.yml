@@ -2,6 +2,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
 server:
-  port: 911
+  port: 1011
 logging:
   config: classpath:config/logback-spring.xml

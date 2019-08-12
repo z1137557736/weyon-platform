@@ -1,8 +1,8 @@
 package com.weyon.core.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.weyon.core.entity.core.CoreStudentSource;
-import com.weyon.framework.model.IService;
+import com.weyon.common.model.IService;
+import com.weyon.core.entity.CoreStudentSource;
 
 import java.util.List;
 import java.util.Map;

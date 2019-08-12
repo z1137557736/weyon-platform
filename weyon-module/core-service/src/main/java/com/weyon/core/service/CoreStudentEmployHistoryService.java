@@ -1,7 +1,8 @@
 package com.weyon.core.service;
 
-import com.weyon.core.entity.core.CoreStudentEmployHistory;
-import com.weyon.framework.model.IService;
+import com.weyon.common.model.IService;
+import com.weyon.core.entity.CoreStudentEmployHistory;
+
 
 public interface CoreStudentEmployHistoryService extends IService<CoreStudentEmployHistory> {
     CoreStudentEmployHistory selectSecondNew(String studentKey);
