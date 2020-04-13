@@ -1,8 +1,8 @@
 HELP.md
-/target/
-/src/test/
+test
 mybatis-generator.*
-!.mvn/wrapper/maven-wrapper.jar
+.mvn
+target
 
 ### STS ###
 .apt_generated
