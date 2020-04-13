@@ -19,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/swagger-resources")
 public class SwaggerResourceController {
+
     @Autowired(required = false)
     private SecurityConfiguration securityConfiguration;
 

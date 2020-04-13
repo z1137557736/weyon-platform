@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping(SysOrganizationClient.PREFIX)
 public interface SysOrganizationClient {
 
-    String PREFIX = "/admin/org";
+    String PREFIX = "/org";
 
     @GetMapping
     ObjectResponse getList(@RequestParam Map<String, Object> map);

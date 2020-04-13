@@ -10,6 +10,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.paths.RelativePathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
@@ -34,7 +35,7 @@ public class Swagger2Config {
                 .apiInfo(new ApiInfoBuilder().title("省级平台（系统管理）restful API").version("1.0").build())
                 .globalOperationParameters(Lists.newArrayList(builder.build()))
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.weyon"))
                 .paths(PathSelectors.any())
                 .build();
     }

@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping(SysOperationLogClient.PREFIX)
 public interface SysOperationLogClient {
 
-    String PREFIX = "/admin/log";
+    String PREFIX = "/log";
 
     @GetMapping
     ObjectResponse getList(@RequestParam Map<String, Object> map);

@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping(SysUserClient.PREFIX)
 public interface SysUserClient {
 
-    String PREFIX = "/admin/user";
+    String PREFIX = "/user";
 
     @GetMapping
     ObjectResponse getList(@RequestParam Map<String, Object> map);

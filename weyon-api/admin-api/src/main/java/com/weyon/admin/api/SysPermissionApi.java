@@ -1,8 +1,6 @@
 package com.weyon.admin.api;
 
 import com.weyon.admin.client.SysPermissionClient;
-import com.weyon.admin.client.SysUserClient;
-import com.weyon.framework.constant.Constant;
 import com.weyon.framework.handler.ObjectResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +16,7 @@ import java.util.Map;
  **/
 @Api(tags = "系统权限接口")
 @RestController
-@RequestMapping(Constant.API_PREFIX + SysPermissionClient.PREFIX)
+@RequestMapping(SysPermissionClient.PREFIX)
 public class SysPermissionApi {
 
     @Autowired
@@ -54,9 +52,15 @@ public class SysPermissionApi {
         return sysPermissionClient.delete(id);
     }
 
-    @ApiOperation("获取菜单")
-    @GetMapping("/menu")
-    public ObjectResponse getMenuList() {
-        return sysPermissionClient.getMenuList();
+    @ApiOperation("获取所有菜单")
+    @GetMapping("/allMenu")
+    public ObjectResponse getAllMenuList() {
+        return sysPermissionClient.getAllMenuList();
+    }
+
+    @ApiOperation("获取当前用户的菜单")
+    @GetMapping("/curUserMenu")
+    public ObjectResponse getCurUserMenuList() {
+        return sysPermissionClient.getCurUserMenuList();
     }
 }

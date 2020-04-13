@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping(SysRoleClient.PREFIX)
 public interface SysRoleClient {
 
-    String PREFIX = "/admin/role";
+    String PREFIX = "/role";
 
     @GetMapping
     ObjectResponse getList(@RequestParam Map<String, Object> map);

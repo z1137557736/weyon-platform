@@ -3,7 +3,6 @@ package com.weyon.security.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.weyon.framework.constant.RedisConstant;
-import com.weyon.common.handler.BaseController;
 import com.weyon.framework.util.DateUtil;
 import com.weyon.security.model.MyUser;
 import io.jsonwebtoken.Claims;
@@ -14,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.util.StringUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +42,8 @@ public class JwtTokenService implements Serializable {
     @Value("${token.jwtSecret}")
     private String SECRET;
 
+    @Autowired
+    private HttpServletRequest request;
 
     /**
      * 生成永久token
@@ -62,7 +64,7 @@ public class JwtTokenService implements Serializable {
     }
 
     public MyUser getAuthentication() {
-        String token = BaseController.getRequest().getHeader(RedisConstant.HEADER_TOKEN);
+        String token = request.getHeader(RedisConstant.HEADER_TOKEN);
         if (StringUtil.isNotEmpty(token)) {
             MyUser myUser = getUser(token);
             return myUser;

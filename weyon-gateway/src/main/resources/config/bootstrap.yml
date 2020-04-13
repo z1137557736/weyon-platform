@@ -5,11 +5,9 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+        namespace: d764d691-288d-4348-9366-0af8611e65d8
       config:
-        server-addr: localhost:8848
-        # local
-        namespace: 03aa230e-67b4-419c-adcb-476e5a677c05
-        # dev
-        # namespace: d764d691-288d-4348-9366-0af8611e65d8
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
         shared-dataids: gateway.yaml
-        refreshable-dataids: gateway.yaml #实时刷新
+        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids} #实时刷新

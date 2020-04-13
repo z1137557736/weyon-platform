@@ -1,9 +1,6 @@
 package com.weyon.admin.api;
 
 import com.weyon.admin.client.SysOrganizationClient;
-import com.weyon.admin.client.SysPermissionClient;
-import com.weyon.admin.client.SysUserClient;
-import com.weyon.framework.constant.Constant;
 import com.weyon.framework.handler.ObjectResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +16,7 @@ import java.util.Map;
  **/
 @Api(tags = "组织机构接口")
 @RestController
-@RequestMapping(Constant.API_PREFIX + SysOrganizationClient.PREFIX)
+@RequestMapping(SysOrganizationClient.PREFIX)
 public class SysOrganizationApi {
 
     @Autowired

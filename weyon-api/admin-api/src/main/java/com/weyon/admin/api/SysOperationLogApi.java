@@ -1,7 +1,6 @@
 package com.weyon.admin.api;
 
 import com.weyon.admin.client.SysOperationLogClient;
-import com.weyon.framework.constant.Constant;
 import com.weyon.framework.handler.ObjectResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,7 @@ import java.util.Map;
  **/
 @Api(tags = "操作日志接口")
 @RestController
-@RequestMapping(Constant.API_PREFIX + SysOperationLogClient.PREFIX)
+@RequestMapping(SysOperationLogClient.PREFIX)
 public class SysOperationLogApi {
 
     @Autowired

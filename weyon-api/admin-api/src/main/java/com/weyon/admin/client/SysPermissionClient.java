@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping(SysPermissionClient.PREFIX)
 public interface SysPermissionClient {
 
-    String PREFIX = "/admin/perm";
+    String PREFIX = "/perm";
 
     @GetMapping
     ObjectResponse getList(@RequestParam Map<String, Object> map);
@@ -32,6 +32,9 @@ public interface SysPermissionClient {
     @DeleteMapping("/{id}")
     ObjectResponse delete(@PathVariable("id") String id);
 
-    @GetMapping("/menu")
-    ObjectResponse getMenuList();
+    @GetMapping("/allMenu")
+    ObjectResponse getAllMenuList();
+
+    @GetMapping("/curUserMenu")
+    ObjectResponse getCurUserMenuList();
 }

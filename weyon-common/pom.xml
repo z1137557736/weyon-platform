@@ -13,22 +13,32 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>weyon-common</name>
     <description>weyon-common</description>
-    <packaging>pom</packaging>
 
     <properties>
         <java.version>1.8</java.version>
-        <tk.mybatis.varsion>2.1.5</tk.mybatis.varsion>
         <servlet-api.version>2.5</servlet-api.version>
-        <log4j.version>1.2.17</log4j.version>
-        <easy.poi.version>4.0.0</easy.poi.version>
-        <pagehelper.version>1.2.10</pagehelper.version>
+        <fastjson.version>1.2.56</fastjson.version>
+        <spring-fox-swagger2.version>2.9.2</spring-fox-swagger2.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.weyon</groupId>
-            <artifactId>framework-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${spring-fox-swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${spring-fox-swagger2.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -37,32 +47,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>${tk.mybatis.varsion}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>${pagehelper.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-spring-boot-starter</artifactId>
-            <version>${easy.poi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>${project.artifactId}</finalName>
     </build>
+
 </project>

@@ -24,7 +24,7 @@ public class MyPermission implements Serializable {
 
     private String icon;
 
-    private String url;
+    private String path;
 
     private Byte permissionType;
 

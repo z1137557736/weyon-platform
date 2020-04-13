@@ -1,0 +1,89 @@
+package com.weyon.admin.controller;
+
+import com.weyon.admin.anno.MyLog;
+import com.weyon.admin.entity.SysPermission;
+import com.weyon.admin.serivce.SysPermissionService;
+import com.weyon.common.handler.BaseController;
+import com.weyon.framework.handler.ObjectResponse;
+import com.weyon.framework.util.RecursionTreeUtil;
+import com.weyon.security.model.MyPermission;
+import com.weyon.security.model.MyUser;
+import com.weyon.security.service.JwtTokenService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * @author liuxu
+ * @description 系统权限控制类
+ * @date 2019-05-21
+ **/
+@RestController
+@RequestMapping("/perm")
+public class SysPermissionController extends BaseController {
+
+    @Autowired
+    private SysPermissionService permissionService;
+
+    @Autowired
+    private JwtTokenService tokenService;
+
+
+    // @PreAuthorize("hasAuthority('user:save66')")
+    @GetMapping
+    public ObjectResponse getList(){
+        List<SysPermission> list = permissionService.selectAll();
+        return ObjectResponse.ok(RecursionTreeUtil.defaultChangeTree(list, SysPermission.class));
+    }
+
+    @GetMapping("/allMenu")
+    public ObjectResponse getMenuList(){
+        List<SysPermission> list = permissionService.selectAll().stream().filter(p -> p.getPermissionType() == 1).collect(Collectors.toList());
+        SysPermission permission = new SysPermission();
+        permission.setId("0");
+        permission.setPid("-1");
+        permission.setName("顶级菜单");
+        list.add(permission);
+        return ObjectResponse.ok(RecursionTreeUtil.defaultChangeTree(list, SysPermission.class));
+    }
+
+    @GetMapping("/curUserMenu")
+    public ObjectResponse getCurUserMenuList(){
+        MyUser myUser = tokenService.getAuthentication();
+        List<MyPermission> list = myUser.getPermissions().stream().filter(p -> p.getPermissionType() == 1).collect(Collectors.toList());
+        return ObjectResponse.ok(RecursionTreeUtil.defaultChangeTree(list, MyPermission.class));
+    }
+
+    @GetMapping("/{id}")
+    public ObjectResponse init(@PathVariable("id") String id) {
+        SysPermission sysPermission =  permissionService.selectByKey(id);
+        return ObjectResponse.ok(sysPermission);
+    }
+
+
+    @PostMapping
+    @MyLog("添加权限")
+    public ObjectResponse save(SysPermission sysPermission) {
+        permissionService.saveNotNull(sysPermission);
+        return ObjectResponse.ok("添加成功");
+    }
+
+    @PreAuthorize("hasAnyAuthority('perm:edit')")
+    @PutMapping
+    @MyLog("修改权限")
+    public ObjectResponse update(SysPermission sysPermission) {
+        permissionService.updateNotNull(sysPermission);
+        return ObjectResponse.ok("修改成功");
+    }
+
+    @DeleteMapping("/{id}")
+    @MyLog("删除权限")
+    public ObjectResponse delete(@PathVariable("id") String id) {
+        permissionService.delete(id);
+        return ObjectResponse.ok("删除成功");
+    }
+
+}

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: admin-service
+  main:
+    allow-bean-definition-overriding: true # 必须先注入
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: d764d691-288d-4348-9366-0af8611e65d8
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        shared-dataids: bootstrap-common.yaml
+        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids} #实时刷新

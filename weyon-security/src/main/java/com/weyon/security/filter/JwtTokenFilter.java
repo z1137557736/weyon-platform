@@ -35,6 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             MyUser myUser = jwtTokenService.getUser(token);
             if (myUser != null) {
                 myUser = checkLoginTime(myUser);
+                // token 授权登录
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(myUser,
                         null, myUser.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
@@ -55,9 +56,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         long expireTime = myUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
         if (expireTime - currentTime <= RedisConstant.MINUTES_10) {
-            /*String uuid = myUser.getUuid();
-            myUser = (MyUser) userDetailsService.loadUserByUsername(myUser.getUsername());
-            myUser.setUuid(uuid);*/
             jwtTokenService.refreshUser(myUser);
         }
         return myUser;

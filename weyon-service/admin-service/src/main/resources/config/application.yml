@@ -1,0 +1,4 @@
+server:
+  port: 911
+logging:
+  config: classpath:config/logback-spring.xml

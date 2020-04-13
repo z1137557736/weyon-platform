@@ -83,8 +83,6 @@ public class MyUser implements UserDetails {
 
     private List<MyPermission> permissions;
 
-    private List<String> roles;
-
     private String uuid;
 
     /** 过期时间戳 */
